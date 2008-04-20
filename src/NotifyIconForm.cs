@@ -21,6 +21,7 @@
 //FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //OTHER DEALINGS IN THE SOFTWARE.
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -90,7 +91,7 @@ namespace YouWebIt
 
         private void saveConfigToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string configFileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "YouWebIt.exe.config");
+            string configFileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
             string configFileContent = @"<?xml version=""1.0"" encoding=""utf-8"" ?>
 <configuration>
   <appSettings>
@@ -111,7 +112,23 @@ namespace YouWebIt
                                           YouWebItConsoletHost.YouWebItInstance.ServerPort);
             File.WriteAllText(configFileName,format,Encoding.UTF8);
 
-            NotifyIcon.ShowBalloonTip(2000,"YouWebIt","Config File Saved",ToolTipIcon.Info);
+            NotifyIcon.ShowBalloonTip(5000, "YouWebIt", "Config File Saved in " + YouWebItConsoletHost.YouWebItInstance.ServerPhysicalPath, ToolTipIcon.Info);
+            NotifyIcon.BalloonTipClicked += new EventHandler(NotifyIcon_BalloonTipClicked);
+        }
+
+        void NotifyIcon_BalloonTipClicked(object sender, EventArgs e)
+        {
+            NotifyIcon.BalloonTipClicked -= new EventHandler(NotifyIcon_BalloonTipClicked);
+            VoidMethodDelegate asynchLauncher = delegate
+            {
+                string configFileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+                if (string.IsNullOrEmpty(configFileName))
+                {
+                    return;
+                }
+                Process.Start(configFileName);
+            };
+            asynchLauncher.BeginInvoke(null, null);
         }
     }
 
