@@ -68,7 +68,6 @@ namespace YouWebIt
 
             m_ServerVirtualPath = "/";
 
-
             //If Visual Studio is not installed, we need to return WebDev.WebHost to the CLR. 
             //As Aps.Net WebServer will create a new AppDomain just after that. We need to extract 
             //WebDev.WebHost to the WebSite bin directory. 
@@ -92,7 +91,7 @@ namespace YouWebIt
                         //Copy our assemblies down into the web server's BIN folder
 
                         string webSiteBinPath = Path.Combine(m_ServerPhysicalPath, "bin");
-                        EmbeddedResourceFileHelper.ExtractFile("WebDev.WebHost.dll", webSiteBinPath);
+                        EmbeddedResourceFileHelper.ExtractFile("YouWebIt.WebDev.WebHost.dll", webSiteBinPath, "WebDev.WebHost.dll");
 
                         return Assembly.Load((byte[]) buf);
                     });
@@ -115,10 +114,10 @@ namespace YouWebIt
             string homePageFileName = GetHomePageFileName(m_ServerPhysicalPath);
             if (string.IsNullOrEmpty(homePageFileName))
             {
-                EmbeddedResourceFileHelper.ExtractFile("YouWebIt.Greeting.html", m_ServerPhysicalPath);
-                EmbeddedResourceFileHelper.ExtractFile("YouWebIt.GreetingFiles.Greeting.css", Path.Combine(m_ServerPhysicalPath, "GreetingFiles"));
-                EmbeddedResourceFileHelper.ExtractFile("YouWebIt.GreetingFiles.screenshot.png", Path.Combine(m_ServerPhysicalPath, "GreetingFiles"));
-                EmbeddedResourceFileHelper.ExtractFile("YouWebIt.GreetingFiles.YouWebItLogo.png", Path.Combine(m_ServerPhysicalPath, "GreetingFiles"));
+                EmbeddedResourceFileHelper.ExtractFile("YouWebIt.Greeting.html", m_ServerPhysicalPath,"YouWebIt.Greeting.html");
+                EmbeddedResourceFileHelper.ExtractFile("YouWebIt.GreetingFiles.Greeting.css", Path.Combine(m_ServerPhysicalPath, "GreetingFiles"),"YouWebIt.GreetingFiles.Greeting.css");
+                EmbeddedResourceFileHelper.ExtractFile("YouWebIt.GreetingFiles.screenshot.png", Path.Combine(m_ServerPhysicalPath, "GreetingFiles"),"YouWebIt.GreetingFiles.screenshot.png");
+                EmbeddedResourceFileHelper.ExtractFile("YouWebIt.GreetingFiles.YouWebItLogo.png", Path.Combine(m_ServerPhysicalPath, "GreetingFiles"),"YouWebIt.GreetingFiles.YouWebItLogo.png");
                 return new Uri(m_webServerUri, "YouWebIt.Greeting.html");
             }
             Uri homePageUri = new Uri(m_webServerUri, homePageFileName);
