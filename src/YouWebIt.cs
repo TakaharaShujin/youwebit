@@ -92,7 +92,7 @@ namespace YouWebIt
                         //Copy our assemblies down into the web server's BIN folder
 
                         string webSiteBinPath = Path.Combine(m_ServerPhysicalPath, "bin");
-                        EmbeddedResourceFileHelper.ExtractFile("YouWebIt.WebDev.WebHost.dll", webSiteBinPath);
+                        EmbeddedResourceFileHelper.ExtractFile("WebDev.WebHost.dll", webSiteBinPath);
 
                         return Assembly.Load((byte[]) buf);
                     });

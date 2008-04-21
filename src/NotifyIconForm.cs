@@ -99,8 +99,8 @@ namespace YouWebIt
     <!--Example : ./WebSite or ../src/WebApp -->
     <add key=""ServerPhysicalPath"" value=""{0}""/>
     
-    <!--Your HomeUrl. YouWebIt search for : default.aspx, Default.aspx, Default.html, default.html, Index.html, index.html. -->
-    <add key=""HomeUrl"" value=""{1}""/>
+    <!--Your HomePageFileName. YouWebIt search for : default.aspx, Default.aspx, Default.html, default.html, Index.html, index.html. -->
+    <add key=""HomePageFileName"" value=""{1}""/>
 
     <!--Webserver Port. Use this if yo want to allways use the same port number.-->
     <add key=""ServerPort"" value=""{2}""/>
