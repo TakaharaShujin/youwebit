@@ -28,10 +28,10 @@ namespace YouWebIt
 {
     public class EmbeddedResourceFileHelper
     {
-        public static void ExtractFile(string ressourceFileName, string directory)
+        public static void ExtractFile(string ressourceFileName, string directory,string extratedFileName)
         {
-            string filePath = Path.Combine(directory, ressourceFileName);
-            if (!File.Exists(filePath))
+            string extractedFilePath = Path.Combine(directory, extratedFileName);
+            if (!File.Exists(extractedFilePath))
             {
                 Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(ressourceFileName);
                 byte[] buf = new byte[stream.Length];
@@ -42,7 +42,7 @@ namespace YouWebIt
                     {
                         Directory.CreateDirectory(directory);
                     }
-                    File.WriteAllBytes(filePath, buf);
+                    File.WriteAllBytes(extractedFilePath, buf);
                 }
                 catch (Exception e)
                 {
